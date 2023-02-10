@@ -77,6 +77,29 @@ public class Simulator {
     System.out.println("Mycoplasma cells: " + mycoplasmaCells);
   }
 
+  // get the number of dead Salmonella cells
+  public void getDeadSalmonellaCellsCount(){
+    int deadSalmonellaCells = 0;
+    for (Cell cell : cells) {
+      if (cell.getClass().getName().equals("Salmonella") && !cell.isAlive()) {
+        deadSalmonellaCells++;
+      }
+    }
+    System.out.println("Dead Salmonella cells: " + deadSalmonellaCells);
+  }
+
+
+  public void getBlackCellsCount(){
+    int blackCells = 0;
+    for (Cell cell : cells) {
+      if (cell.getColor().equals(Color.BLACK)) {
+        blackCells++;
+      }
+    }
+    System.out.println("Black cells: " + blackCells);
+  }
+
+
   public void getDeadCellsSize() {
     int deadCells = 0;
     for (Cell cell : cells) {
@@ -138,15 +161,12 @@ public class Simulator {
     for (int gen = 1; gen <= numGenerations && view.isViable(field); gen++) {
       simOneGeneration();
       delay(500); // comment out to run simulation faster
-
       System.out.println("Generation: " + getGeneration());
-      System.out.println("Number of cells: " + cells.size());
-      System.out.println("Number of dead cells");
-      getDeadCellsSize();
-      System.out.println("Number of Mycoplasma cells");
-      getSizeofMycoplasmainCells();
-      System.out.println("Number of Salmonella cells");
-      getSizeofSalmonellainCells();
+
+      System.out.println("Number of dead Salmonella cells");
+      getDeadSalmonellaCellsCount();
+      System.out.println("Number of black cells");
+      getBlackCellsCount();
 
     }
 
@@ -199,6 +219,7 @@ public class Simulator {
         if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
           Cell myco = new Mycoplasma(field, location, Color.BLUE);
           cells.add(myco);
+
         }
 
         // fill the field with sal if the random number is less than the probability
@@ -237,6 +258,7 @@ public class Simulator {
     }
   }
 
+  // get the generation
   public int getGeneration() {
     return generation;
   }

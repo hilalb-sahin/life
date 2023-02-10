@@ -14,6 +14,8 @@ import java.util.concurrent.TimeUnit;
  * @version 2022.01.06 (1)
  */
 
+
+
 public class Salmonella extends Cell {
 
   /**
@@ -35,14 +37,18 @@ public class Salmonella extends Cell {
     List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
     setNextState(false);
     if (isAlive()) {
+      updateColor(Color.RED);
       if (neighbours.size() < 2) {
         setNextState(false);
       } else if (neighbours.size() == 2 || neighbours.size() == 3) {
         setNextState(true);
       }
     } else {
-      if (neighbours.size() == 3)
+      updateColor(Color.black);
+      if (neighbours.size() == 3){
         setNextState(true);
+      }
+      
     }
 
   }
@@ -55,6 +61,12 @@ public class Salmonella extends Cell {
           System.out.println("Salmonella died");
         });
         System.out.println("test2");
+  }
+
+  public void updateColor(Color col) {
+      setColor(col);
+    
+
   }
 
 
