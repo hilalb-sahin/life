@@ -1,6 +1,6 @@
 import java.awt.Color;
 import java.util.List;
-
+import java.util.Random;
 /**
  * A class representing the shared characteristics of all forms of life
  *
@@ -24,6 +24,11 @@ public abstract class Cell {
     // The cell's color
     private Color color = Color.white;
 
+    private int age  = 0;
+
+    private boolean isDiseased = false;
+    private int diseasedAge = 0;
+
 
     /**
      * Create a new cell at location in field.
@@ -39,11 +44,43 @@ public abstract class Cell {
         setColor(col);
     }
 
+    public void incrementAge() {
+      age++;
+    }
+    public void resetAge() {
+      age = 0;
+    }
+    public int getAge() {
+      return age;
+    }
+
+    //randomize number from 0 to 10
+    public int randomize() {
+      Random rand = new Random();
+      int randomNum = rand.nextInt(10);
+      return randomNum;
+    }
+   
     /**
      * Make this cell act - that is: the cell decides it's status in the
      * next generation.
      */
-    abstract public void act();
+     public void act(){
+      //if in the next round you are alive, increment age 
+      if(nextAlive){
+        //randomly get disease (for each life form)
+        //get diseased in %30 of chance, if you are not already diseased
+        if(randomize() > 7 && !isDiseased){
+          isDiseased = true;
+          //get disease, die after 5 rounds of disease, ? (change of behaviour)
+          setNextState(false);
+          resetAge();
+        }
+        incrementAge();
+      } else {
+        resetAge();
+      }
+     }
 
     /**
      * Check whether the cell is alive or not.
@@ -64,7 +101,9 @@ public abstract class Cell {
      * Indicate that the cell will be alive or dead in the next generation.
      */
     public void setNextState(boolean value) {
-      nextAlive = value;
+        nextAlive = value;
+      
+      
     }
 
     /**

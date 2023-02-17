@@ -92,10 +92,10 @@ public class SimulatorView extends JFrame {
 
           if (cell != null && cell.isAlive()) {
             stats.incrementCount(cell.getClass());
-            fieldView.drawMark(col, row, cell.getColor());
+            fieldView.drawMark(col, row, cell.getColor(), cell.getAge());
           }
           else {
-            fieldView.drawMark(col, row, EMPTY_COLOR);
+            fieldView.drawMark(col, row, EMPTY_COLOR, 0);
           }
         }
       }
@@ -170,10 +170,15 @@ public class SimulatorView extends JFrame {
         /**
          * Paint on grid location on this field in a given color.
          */
-        public void drawMark(int x, int y, Color color) {
+        public void drawMark(int x, int y, Color color, int age) {
             g.setColor(color);
             g.fillRect(x * xScale, y * yScale, xScale-1, yScale-1);
+            if (age >= 0) {
+                g.setColor(Color.WHITE);
+                g.drawString(Integer.toString(age), x * xScale + 2, y * yScale + yScale - 4);
+            }
         }
+    
 
         /**
          * The field view component needs to be redisplayed. Copy the

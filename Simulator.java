@@ -23,10 +23,12 @@ public class Simulator {
   private static final double MYCOPLASMA_ALIVE_PROB = 0.2;
 
   // The probability that a Salmonella is alive
-  private static final double SALMONELLA_ALIVE_PROB = 0.3;
+  private static final double SALMONELLA_ALIVE_PROB = 0.4;
 
   // the probability that a bacteria is alive
-  private static final double BACTERIA_ALIVE_PROB = 0.2;
+  private static final double BACTERIA_ALIVE_PROB = 0.1;  
+  private static final double VIRUS_ALIVE_PROB = 0.3;
+  private static final double NDP_ALIVE_PROB = 0.1;
   // List of cells in the field.
   private List<Cell> cells;
 
@@ -43,7 +45,7 @@ public class Simulator {
    * Execute simulation
    */
   public static void main(String[] args) {
-    Simulator sim = new Simulator();
+    Simulator sim = new Simulator(25,25);
     sim.simulate(100);
     System.out.println("Simulation finished");
 
@@ -221,24 +223,36 @@ public class Simulator {
           cells.add(myco);
 
         }
-
-        // fill the field with sal if the random number is less than the probability
         else if (rand.nextDouble() <= SALMONELLA_ALIVE_PROB) {
           Cell sal = new Salmonella(field, location, Color.RED);
           cells.add(sal);
         }
+        //fill the field with virus if the random number is less than the probability
+        else if (rand.nextDouble() <= VIRUS_ALIVE_PROB) {
+          Cell virus = new Virus(field, location, Color.PINK);
+          cells.add(virus);
+        }
+        //fill the field with npd if random number is less than the probability
+        else if (rand.nextDouble() <= NDP_ALIVE_PROB) {
+          Cell npd = new Bacteria(field, location, Color.orange);
+          cells.add(npd);
 
-        // fill the field with bac if the random number is less than the probability
+        }
+        //fill with bacteria
         else if (rand.nextDouble() <= BACTERIA_ALIVE_PROB) {
           Cell bac = new Bacteria(field, location, Color.GREEN);
           cells.add(bac);
 
         }
+       
+
+        
         // fill the empty spots with dead cells so they can become alive later
         else {
-          Salmonella sal = new Salmonella(field, location, Color.RED);
-          cells.add(sal);
-          sal.setDead();
+
+          Bacteria bac = new Bacteria(field, location, Color.GREEN);
+          cells.add(bac);
+
         }
       }
     }
@@ -258,9 +272,6 @@ public class Simulator {
     }
   }
 
-  // get the generation
-  public int getGeneration() {
-    return generation;
-  }
+
 
 }

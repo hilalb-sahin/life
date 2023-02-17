@@ -3,16 +3,13 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Simplest form of life.
- * Fun Fact: Mycoplasma are one of the simplest forms of life. A type of
- * bacteria, they only have 500-1000 genes! For comparison, fruit flies have
- * about 14,000 genes.
+ * Has parasitic relationship with mycoplasma
  *
  * @author David J. Barnes, Michael Kölling & Jeffery Raphael
  * @version 2022.01.06 (1)
  */
 
-public class Mycoplasma extends Cell {
+public class Virus extends Cell {
 
   /**
    * Create a new Mycoplasma.
@@ -20,7 +17,7 @@ public class Mycoplasma extends Cell {
    * @param field    The field currently occupied.
    * @param location The location within the field.
    */
-  public Mycoplasma(Field field, Location location, Color col) {
+  public Virus(Field field, Location location, Color col) {
     super(field, location, col);
   }
 
@@ -32,13 +29,7 @@ public class Mycoplasma extends Cell {
     setNextState(false);
 
     if (isAlive()) {
-      //if neighbouring cell is virus then die and reset age (parasitic relationship)
-      for (Cell cell : neighbours) {
-        if (cell instanceof Virus) {
-          setNextState(false);
-          resetAge();
-        }
-      }
+      
       if (neighbours.size() < 2) {
         setNextState(false);
         resetAge();
@@ -49,11 +40,18 @@ public class Mycoplasma extends Cell {
 
       }
     } else {
+      //if neighbouring cell is mycoplasma then become alive (positive effect on virus)
+      for (Cell cell : neighbours) {
+        if (cell instanceof Mycoplasma) {
+          setNextState(true);
+          incrementAge();
+        }
+      }
       resetAge();
       if (neighbours.size() == 3)
         setNextState(true);
         incrementAge();
     }
   }
-  
+
 }
