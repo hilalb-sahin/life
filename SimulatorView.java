@@ -3,6 +3,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.awt.Color;
 
 /**
  * A graphical view of the simulation grid. The view displays a rectangle for
@@ -15,10 +16,10 @@ import java.util.Map;
 
 public class SimulatorView extends JFrame {
     // Colors used for empty locations.
-    private static final Color EMPTY_COLOR = Color.white;
+    private static final Color EMPTY_COLOR = Color.WHITE;
 
     // Color used for objects that have no defined color.
-    private static final Color UNKNOWN_COLOR = Color.gray;
+    private static final Color UNKNOWN_COLOR = Color.GRAY;
 
     // Text for generation GUI label
     private final String GENERATION_PREFIX = "Generation: ";
@@ -103,6 +104,11 @@ public class SimulatorView extends JFrame {
       stats.countFinished();
       population.setText(POPULATION_PREFIX + stats.getPopulationDetails(field));
       fieldView.repaint();
+    }
+
+    //get population details
+    public String getPopulationDetails(Field field) {
+      return stats.getPopulationDetails(field);
     }
 
     /**

@@ -1,5 +1,6 @@
 import java.util.List;
 import java.util.Random;
+import java.awt.Color;
 
 public class Ndplasma extends Cell {
     public Ndplasma(Field field, Location location, Color col) {
@@ -33,7 +34,7 @@ public class Ndplasma extends Cell {
             }
         } else {
             if (isAlive()) {
-                
+
                 if (neighbours.size() < 2) {
                     setNextState(false);
                     resetAge();

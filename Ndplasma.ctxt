@@ -1,0 +1,9 @@
+#BlueJ class context
+comment0.target=Ndplasma
+comment1.params=field\ location\ col
+comment1.target=Ndplasma(Field,\ Location,\ java.awt.Color)
+comment2.params=
+comment2.target=int\ randomize()
+comment3.params=
+comment3.target=void\ act()
+numComments=4

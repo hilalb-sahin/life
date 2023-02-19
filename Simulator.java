@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
+
 /**
  * A Life (Game of Life) simulator, first described by British mathematician
  * John Horton Conway in 1970.
@@ -51,73 +52,14 @@ public class Simulator {
 
   }
 
-  public void getCellsClassName() {
-    for (Cell cell : cells) {
-      System.out.println(cell.getClass().getName());
-    }
-  }
-
-  // get the amount of Salmonella cells
-  public void getSizeofSalmonellainCells() {
-    int salmonellaCells = 0;
-    for (Cell cell : cells) {
-      if (cell.getClass().getName().equals("Salmonella")) {
-        salmonellaCells++;
-      }
-    }
-    System.out.println("Salmonella cells: " + salmonellaCells);
-  }
-
-  // get the amount of Mycoplasma cells
-  public void getSizeofMycoplasmainCells() {
-    int mycoplasmaCells = 0;
-    for (Cell cell : cells) {
-      if (cell.getClass().getName().equals("Mycoplasma")) {
-        mycoplasmaCells++;
-      }
-    }
-    System.out.println("Mycoplasma cells: " + mycoplasmaCells);
-  }
-
-  // get the number of dead Salmonella cells
-  public void getDeadSalmonellaCellsCount(){
-    int deadSalmonellaCells = 0;
-    for (Cell cell : cells) {
-      if (cell.getClass().getName().equals("Salmonella") && !cell.isAlive()) {
-        deadSalmonellaCells++;
-      }
-    }
-    System.out.println("Dead Salmonella cells: " + deadSalmonellaCells);
-  }
-
-
-  public void getBlackCellsCount(){
-    int blackCells = 0;
-    for (Cell cell : cells) {
-      if (cell.getColor().equals(Color.BLACK)) {
-        blackCells++;
-      }
-    }
-    System.out.println("Black cells: " + blackCells);
-  }
-
-
-  public void getDeadCellsSize() {
-    int deadCells = 0;
-    for (Cell cell : cells) {
-      if (!cell.isAlive()) {
-        deadCells++;
-      }
-    }
-    System.out.println("Dead cells: " + deadCells);
-  }
-
   /**
    * Construct a simulation field with default size.
    */
   public Simulator() {
     this(DEFAULT_DEPTH, DEFAULT_WIDTH);
+
   }
+
 
   /**
    * Create a simulation field with the given size.
@@ -162,16 +104,24 @@ public class Simulator {
   public void simulate(int numGenerations) {
     for (int gen = 1; gen <= numGenerations && view.isViable(field); gen++) {
       simOneGeneration();
-      delay(500); // comment out to run simulation faster
-      System.out.println("Generation: " + getGeneration());
-
-      System.out.println("Number of dead Salmonella cells");
-      getDeadSalmonellaCellsCount();
-      System.out.println("Number of black cells");
-      getBlackCellsCount();
-
+      delay(500); 
+      System.out.println(view.getPopulationDetails(field));
+     
+      System.out.println("Ndp count: " + getNdpCount());
+      
     }
 
+  }
+
+  //the amount of npd cells inside cells array
+  public int getNdpCount(){
+    int count = 0;
+    for (Cell cell : cells) {
+      if (cell instanceof Ndplasma) {
+        count++;
+      }
+    }
+    return count;
   }
 
   /**
@@ -211,11 +161,14 @@ public class Simulator {
     Random rand = Randomizer.getRandom();
     field.clear();
 
+            //create npdplasma cell instance
+
     for (int row = 0; row < field.getDepth(); row++) {
       for (int col = 0; col < field.getWidth(); col++) {
         // location is the every single spot inside the field
         Location location = new Location(row, col);
         System.out.println();
+
 
         // fill the field with myco if the random number is less than the probability
         if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
@@ -229,15 +182,16 @@ public class Simulator {
         }
         //fill the field with virus if the random number is less than the probability
         else if (rand.nextDouble() <= VIRUS_ALIVE_PROB) {
-          Cell virus = new Virus(field, location, Color.PINK);
+          Cell virus = new Virus(field, location, Color.pink);
           cells.add(virus);
         }
         //fill the field with npd if random number is less than the probability
         else if (rand.nextDouble() <= NDP_ALIVE_PROB) {
-          Cell npd = new Bacteria(field, location, Color.orange);
+          Cell npd = new Ndplasma(field, location, Color.orange);
           cells.add(npd);
 
         }
+
         //fill with bacteria
         else if (rand.nextDouble() <= BACTERIA_ALIVE_PROB) {
           Cell bac = new Bacteria(field, location, Color.GREEN);
@@ -250,8 +204,8 @@ public class Simulator {
         // fill the empty spots with dead cells so they can become alive later
         else {
 
-          Bacteria bac = new Bacteria(field, location, Color.GREEN);
-          cells.add(bac);
+          Cell npd = new Bacteria(field, location, Color.orange);
+          cells.add(npd);
 
         }
       }
@@ -272,6 +226,9 @@ public class Simulator {
     }
   }
 
+    //get generation
+    public int getGeneration(){
+      return generation;}
 
 
 }
