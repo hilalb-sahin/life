@@ -33,26 +33,26 @@ public class Mycoplasma extends Cell {
 
     if (isAlive()) {
       //if neighbouring cell is virus then die and reset age (parasitic relationship)
-      for (Cell cell : neighbours) {
+/*       for (Cell cell : neighbours) {
         if (cell instanceof Virus) {
           setNextState(false);
-          resetAge();
+        
         }
-      }
+      } */
       if (neighbours.size() < 2) {
         setNextState(false);
-        resetAge();
+  
 
       } else if (neighbours.size() == 2 || neighbours.size() == 3) {
         setNextState(true);
-        incrementAge();
+     
 
       }
     } else {
       resetAge();
       if (neighbours.size() == 3)
         setNextState(true);
-        incrementAge();
+
     }
   }
   

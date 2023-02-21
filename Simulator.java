@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.awt.Color;
 
-
 /**
  * A Life (Game of Life) simulator, first described by British mathematician
  * John Horton Conway in 1970.
@@ -20,16 +19,11 @@ public class Simulator {
   // The default depth of the grid.
   private static final int DEFAULT_DEPTH = 100;
 
-  // The probability that a Mycoplasma is alive
   private static final double MYCOPLASMA_ALIVE_PROB = 0.2;
-
-  // The probability that a Salmonella is alive
-  private static final double SALMONELLA_ALIVE_PROB = 0.4;
-
-  // the probability that a bacteria is alive
-  private static final double BACTERIA_ALIVE_PROB = 0.1;  
-  private static final double VIRUS_ALIVE_PROB = 0.3;
-  private static final double NDP_ALIVE_PROB = 0.1;
+  private static final double SALMONELLA_ALIVE_PROB = 0.1;
+  private static final double BACTERIA_ALIVE_PROB = 0.8;
+  private static final double VIRUS_ALIVE_PROB = 0.4;
+  private static final double NDP_ALIVE_PROB = 0.3;
   // List of cells in the field.
   private List<Cell> cells;
 
@@ -42,16 +36,17 @@ public class Simulator {
   // A graphical view of the simulation.
   private SimulatorView view;
 
+
+
   /**
    * Execute simulation
    */
   public static void main(String[] args) {
-    Simulator sim = new Simulator(25,25);
+    Simulator sim = new Simulator(25, 25);
     sim.simulate(100);
     System.out.println("Simulation finished");
 
   }
-
   /**
    * Construct a simulation field with default size.
    */
@@ -59,7 +54,6 @@ public class Simulator {
     this(DEFAULT_DEPTH, DEFAULT_WIDTH);
 
   }
-
 
   /**
    * Create a simulation field with the given size.
@@ -104,25 +98,13 @@ public class Simulator {
   public void simulate(int numGenerations) {
     for (int gen = 1; gen <= numGenerations && view.isViable(field); gen++) {
       simOneGeneration();
-      delay(500); 
+      delay(500);
       System.out.println(view.getPopulationDetails(field));
-     
-      System.out.println("Ndp count: " + getNdpCount());
-      
+
     }
 
   }
 
-  //the amount of npd cells inside cells array
-  public int getNdpCount(){
-    int count = 0;
-    for (Cell cell : cells) {
-      if (cell instanceof Ndplasma) {
-        count++;
-      }
-    }
-    return count;
-  }
 
   /**
    * Run the simulation from its current state for a single generation.
@@ -161,52 +143,40 @@ public class Simulator {
     Random rand = Randomizer.getRandom();
     field.clear();
 
-            //create npdplasma cell instance
-
     for (int row = 0; row < field.getDepth(); row++) {
       for (int col = 0; col < field.getWidth(); col++) {
+    
         // location is the every single spot inside the field
         Location location = new Location(row, col);
         System.out.println();
-
-
         // fill the field with myco if the random number is less than the probability
         if (rand.nextDouble() <= MYCOPLASMA_ALIVE_PROB) {
-          Cell myco = new Mycoplasma(field, location, Color.BLUE);
+          // purple
+          Cell myco = new Mycoplasma(field, location, new Color(229, 204, 255));
           cells.add(myco);
-
-        }
-        else if (rand.nextDouble() <= SALMONELLA_ALIVE_PROB) {
-          Cell sal = new Salmonella(field, location, Color.RED);
+        } else if (rand.nextDouble() <= SALMONELLA_ALIVE_PROB) {
+          Cell sal = new Salmonella(field, location, Color.gray);
           cells.add(sal);
         }
-        //fill the field with virus if the random number is less than the probability
+        // fill the field with virus if the random number is less than the probability
         else if (rand.nextDouble() <= VIRUS_ALIVE_PROB) {
           Cell virus = new Virus(field, location, Color.pink);
           cells.add(virus);
         }
-        //fill the field with npd if random number is less than the probability
+        // fill the field with npd if random number is less than the probability
         else if (rand.nextDouble() <= NDP_ALIVE_PROB) {
-          Cell npd = new Ndplasma(field, location, Color.orange);
-          cells.add(npd);
-
+          Cell ndp = new Ndplasma(field, location, Color.orange);
+          cells.add(ndp);
         }
-
-        //fill with bacteria
+        // fill with bacteria
         else if (rand.nextDouble() <= BACTERIA_ALIVE_PROB) {
-          Cell bac = new Bacteria(field, location, Color.GREEN);
+          Cell bac = new Bacteria(field, location, Color.green);
           cells.add(bac);
-
         }
-       
-
-        
         // fill the empty spots with dead cells so they can become alive later
         else {
-
-          Cell npd = new Bacteria(field, location, Color.orange);
-          cells.add(npd);
-
+          Cell bac = new Bacteria(field, location, Color.green);
+          cells.add(bac);
         }
       }
     }
@@ -226,9 +196,9 @@ public class Simulator {
     }
   }
 
-    //get generation
-    public int getGeneration(){
-      return generation;}
-
+  // get generation
+  public int getGeneration() {
+    return generation;
+  }
 
 }

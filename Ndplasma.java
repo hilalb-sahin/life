@@ -22,28 +22,29 @@ public class Ndplasma extends Cell {
         if (randomize() > 5) {
             if (isAlive()) {
 
-                if (neighbours.size() < 4) {
+                if (neighbours.size() < 2) {
                     setNextState(false);
-                    resetAge();
+
                 }
             } else {
                 resetAge();
-                if (neighbours.size() == 1)
+                if (neighbours.size() == 1) {
                     setNextState(true);
-                incrementAge();
+                }
+
             }
         } else {
             if (isAlive()) {
 
-                if (neighbours.size() < 2) {
+                if (neighbours.size() < 1) {
                     setNextState(false);
-                    resetAge();
                 }
             } else {
                 resetAge();
-                if (neighbours.size() == 2)
+                if (neighbours.size() == 2) {
                     setNextState(true);
-                incrementAge();
+                }
+
             }
 
         }

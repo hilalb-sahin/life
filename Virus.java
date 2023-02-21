@@ -19,6 +19,7 @@ public class Virus extends Cell {
    */
   public Virus(Field field, Location location, Color col) {
     super(field, location, col);
+
   }
 
   /**
@@ -29,28 +30,28 @@ public class Virus extends Cell {
     setNextState(false);
 
     if (isAlive()) {
-      
+
       if (neighbours.size() < 2) {
         setNextState(false);
-        resetAge();
 
       } else if (neighbours.size() == 2 || neighbours.size() == 3) {
         setNextState(true);
-        incrementAge();
 
       }
     } else {
-      //if neighbouring cell is mycoplasma then become alive (positive effect on virus)
-      for (Cell cell : neighbours) {
+      // if neighbouring cell is mycoplasma then become alive (positive effect on
+      // virus)
+/*       for (Cell cell : neighbours) {
         if (cell instanceof Mycoplasma) {
           setNextState(true);
-          incrementAge();
+
         }
-      }
+      } */
       resetAge();
-      if (neighbours.size() == 3)
+      if (neighbours.size() == 3) {
         setNextState(true);
-        incrementAge();
+      }
+
     }
   }
 

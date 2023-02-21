@@ -28,60 +28,49 @@ public class Salmonella extends Cell {
 
   public Salmonella(Field field, Location location, Color col) {
     super(field, location, col);
+    setColor(new Color(255,102,102));
   }
 
   /**
    * This is how the Salmonella decides if it's alive or not
    * displays different way of action depending on cell age
+   * changes color to black when age is more than 5
    */
   public void act() {
+
     List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
     setNextState(false);
+
     if (getAge() < 5) {
-      setColor(Color.red);
+      setColor(Color.gray);
       if (isAlive()) {
         if (neighbours.size() < 2) {
           setNextState(false);
-          resetAge();
         } else if (neighbours.size() == 2 || neighbours.size() == 3) {
           setNextState(true);
-          incrementAge();
         }
       } else {
         if (neighbours.size() == 3) {
           setNextState(true);
-          incrementAge();
         }
       }
     } // if its age is more than 5, then it becomes black and behaviour changes
+
     else {
-      
-      setNextState(false);
       setColor(Color.black);
 
       if (isAlive()) {
-        if (neighbours.size() < 2) {
-          setNextState(false);
-          resetAge();
+        if (neighbours.size() < 3) {
+          setNextState(true);
         }
       } else {
         // become alive if you have 2 neighbours
-        if (neighbours.size() == 3) {
+        if (neighbours.size() == 1) {
           setNextState(true);
-          incrementAge();
+       
         }
-      }
+      } 
     }
-  }
-
-  public void test() {
-    // all salmonella dies after 5 seconds
-    CompletableFuture.delayedExecutor(5, TimeUnit.SECONDS).execute(() -> {
-      // Your code here executes after 5 seconds!
-      setNextState(false);
-      System.out.println("Salmonella died");
-    });
-    System.out.println("test2");
   }
 
 }
