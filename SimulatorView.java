@@ -47,40 +47,55 @@ public class SimulatorView extends JFrame {
      * @param width  The simulation's width.
      */
     public SimulatorView(int height, int width) {
-
         stats = new FieldStats();
-
+    
         setTitle("Life Simulation");
         genLabel = new JLabel(GENERATION_PREFIX, JLabel.CENTER);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         pause = new JButton("Pause");
-        
-
+        resume = new JButton("Resume");
+        stop = new JButton("Stop");
+    
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+    
         setLocation(100, 50);
-
+    
         fieldView = new FieldView(height, width);
-
+    
+        JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
+   
+        buttonPanel.add(pause);
+        buttonPanel.add(resume);
+        buttonPanel.add(stop);
+    
         Container contents = getContentPane();
-
-
-
+        contents.setPreferredSize(new Dimension(400, 300));
+        contents.setLayout(new BorderLayout());
+    
+        // Create a panel that contains generation
         JPanel infoPane = new JPanel(new BorderLayout());
-            infoPane.add(genLabel, BorderLayout.WEST);
-            infoPane.add(infoLabel, BorderLayout.CENTER);
+        infoPane.add(genLabel, BorderLayout.WEST);
+        infoPane.add(infoLabel, BorderLayout.CENTER);
 
-        contents.add(infoPane, BorderLayout.NORTH);
+        // Create the south panel that contains the things in the south
+        JPanel southPanel = new JPanel(new GridLayout(2, 1));
+        southPanel.add(buttonPanel);
+        southPanel.add(population);
+        contents.add(southPanel, BorderLayout.SOUTH);
+
+        // Create the north panel that contains the things in the north
+        JPanel northPanel = new JPanel(new BorderLayout());
+        northPanel.add(infoPane, BorderLayout.CENTER);
+        contents.add(northPanel, BorderLayout.NORTH);
+    
         contents.add(fieldView, BorderLayout.CENTER);
-        contents.add(population, BorderLayout.SOUTH);
-        contents.add(pause, BorderLayout.EAST);
 
+    
         pack();
         setVisible(true);
-
-        
     }
+    
 
     /**
      * Display a short information label at the top of the window.
