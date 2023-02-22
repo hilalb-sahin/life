@@ -27,6 +27,10 @@ public class SimulatorView extends JFrame {
     // Text for population GUI label
     private final String POPULATION_PREFIX = "Population: ";
 
+    //buttons for the simulation
+    private JButton pause, resume, stop;
+
+
     // GUI labels
     private JLabel genLabel, population, infoLabel;
 
@@ -43,12 +47,17 @@ public class SimulatorView extends JFrame {
      * @param width  The simulation's width.
      */
     public SimulatorView(int height, int width) {
+
         stats = new FieldStats();
 
         setTitle("Life Simulation");
         genLabel = new JLabel(GENERATION_PREFIX, JLabel.CENTER);
         infoLabel = new JLabel("  ", JLabel.CENTER);
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
+        pause = new JButton("Pause");
+        
+
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setLocation(100, 50);
 
@@ -56,14 +65,21 @@ public class SimulatorView extends JFrame {
 
         Container contents = getContentPane();
 
+
+
         JPanel infoPane = new JPanel(new BorderLayout());
             infoPane.add(genLabel, BorderLayout.WEST);
             infoPane.add(infoLabel, BorderLayout.CENTER);
+
         contents.add(infoPane, BorderLayout.NORTH);
         contents.add(fieldView, BorderLayout.CENTER);
         contents.add(population, BorderLayout.SOUTH);
+        contents.add(pause, BorderLayout.EAST);
+
         pack();
         setVisible(true);
+
+        
     }
 
     /**
@@ -73,6 +89,8 @@ public class SimulatorView extends JFrame {
         infoLabel.setText(text);
     }
 
+
+ 
     /**
      * Show the current status of the field.
      * @param generation The current generation.
