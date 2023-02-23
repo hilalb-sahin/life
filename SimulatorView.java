@@ -104,6 +104,34 @@ public class SimulatorView extends JFrame {
 
         pack();
         setVisible(true);
+
+        handlePause();
+        handleResume();
+    }
+
+    /*
+     * Handle the pause button
+     */
+    public void handlePause() {
+        // Add event listener for the "Pause" button
+        pause.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                continueSimulation = false;
+            }
+        });
+    }
+
+    /*
+     * Handle the resume button
+     */
+
+    public void handleResume() {
+        // Add event listener for the "Pause" button
+        resume.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                continueSimulation = true;
+            }
+        });
     }
 
     /**
@@ -242,36 +270,11 @@ public class SimulatorView extends JFrame {
             }
         }
 
-        /**
-         * Add a listener to the pause button.
-         * 
-         * @param listener The listener to add.
-         */
-        public void addPauseButtonListener(ActionListener listener) {
-            pause.addActionListener(listener);
-        }
-
-        /**
-         * Add a listener to the resume button.
-         * 
-         * @param listener The listener to add.
-         */
-        public void addResumeButtonListener(ActionListener listener) {
-            resume.addActionListener(listener);
-        }
-
-        /**
-         * Add a listener to the stop button.
-         * 
-         * @param listener The listener to add.
-         */
-        public void addStopButtonListener(ActionListener listener) {
-            stop.addActionListener(listener);
-        }
     }
 
     // return boolean continueSimulation
     public boolean getContinueSimulation() {
         return continueSimulation;
     }
+
 }

@@ -105,6 +105,7 @@ public class Simulator {
       while (!getContinueSimulation()) {
           // if the loop should be paused, wait until continueSimulation is true again
           delay(50000);
+        
       }
   }
 
