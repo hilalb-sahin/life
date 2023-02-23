@@ -7,12 +7,7 @@ public class Ndplasma extends Cell {
         super(field, location, col);
     }
 
-    // randomize number from 0 to 10
-    public int randomize() {
-        Random rand = new Random();
-        int randomNum = rand.nextInt(10);
-        return randomNum;
-    }
+
 
     public void act() {
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());

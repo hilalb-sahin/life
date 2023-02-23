@@ -1,6 +1,6 @@
 #BlueJ class context
 comment0.target=Bacteria
-comment0.text=\n\ A\ simple\ model\ of\ a\ bacteria.\n\ Bacteria\ age\ and\ act\ and\ die\ \n\ Acts\ in\ a\ non-deterministic\ way\ \n\ \n
+comment0.text=\n\ A\ simple\ model\ of\ a\ bacteria.\n\ Bacteria\ age\ and\ act\ and\ die\ \n\ Acts\ in\ a\ non-deterministic\ way\ \n
 comment1.params=field\ location\ col
 comment1.target=Bacteria(Field,\ Location,\ java.awt.Color)
 comment2.params=

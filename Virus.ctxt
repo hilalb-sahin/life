@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Virus
+comment0.text=\n\ Has\ parasitic\ relationship\ with\ mycoplasma\n\n\ @author\ David\ J.\ Barnes,\ Michael\ K\u00F6lling\ &\ Jeffery\ Raphael\n\ @version\ 2022.01.06\ (1)\n
+comment1.params=field\ location\ col
+comment1.target=Virus(Field,\ Location,\ java.awt.Color)
+comment1.text=\n\ Create\ a\ new\ Mycoplasma.\n\n\ @param\ field\ \ \ \ The\ field\ currently\ occupied.\n\ @param\ location\ The\ location\ within\ the\ field.\n
+comment2.params=
+comment2.target=void\ act()
+comment2.text=\n\ This\ is\ how\ the\ Mycoplasma\ decides\ if\ it's\ alive\ or\ not\n
+numComments=3

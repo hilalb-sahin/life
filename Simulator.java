@@ -14,16 +14,17 @@ import java.awt.Color;
 
 public class Simulator {
   // The default width for the grid.
-  private static final int DEFAULT_WIDTH = 100;
+  private static final int DEFAULT_WIDTH = 25;
 
   // The default depth of the grid.
-  private static final int DEFAULT_DEPTH = 100;
+  private static final int DEFAULT_DEPTH = 25;
 
   private static final double MYCOPLASMA_ALIVE_PROB = 0.2;
   private static final double SALMONELLA_ALIVE_PROB = 0.1;
   private static final double BACTERIA_ALIVE_PROB = 0.8;
   private static final double VIRUS_ALIVE_PROB = 0.4;
   private static final double NDP_ALIVE_PROB = 0.3;
+
   // List of cells in the field.
   private List<Cell> cells;
 
@@ -36,8 +37,6 @@ public class Simulator {
   // A graphical view of the simulation.
   private SimulatorView view;
 
-
-
   /**
    * Execute simulation
    */
@@ -47,6 +46,7 @@ public class Simulator {
     System.out.println("Simulation finished");
 
   }
+
   /**
    * Construct a simulation field with default size.
    */
@@ -77,6 +77,8 @@ public class Simulator {
 
     // Setup a valid starting point.
     reset();
+
+  
   }
 
   /**
@@ -96,15 +98,17 @@ public class Simulator {
    * @param numGenerations The number of generations to run for.
    */
   public void simulate(int numGenerations) {
-    for (int gen = 1; gen <= numGenerations && view.isViable(field); gen++) {
+    for (int gen = 1; gen <= numGenerations && view.isViable(field) && getContinueSimulation(); gen++) {
       simOneGeneration();
       delay(500);
       System.out.println(view.getPopulationDetails(field));
-
-    }
-
+      while (!getContinueSimulation()) {
+          // if the loop should be paused, wait until continueSimulation is true again
+          delay(50000);
+      }
   }
 
+  }
 
   /**
    * Run the simulation from its current state for a single generation.
@@ -145,7 +149,7 @@ public class Simulator {
 
     for (int row = 0; row < field.getDepth(); row++) {
       for (int col = 0; col < field.getWidth(); col++) {
-    
+
         // location is the every single spot inside the field
         Location location = new Location(row, col);
         System.out.println();
@@ -199,6 +203,11 @@ public class Simulator {
   // get generation
   public int getGeneration() {
     return generation;
+  }
+
+  //return boolean continueSimulation
+  public boolean getContinueSimulation(){
+    return view.getContinueSimulation();
   }
 
 }

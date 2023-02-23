@@ -14,46 +14,44 @@ import java.util.Random;
 
 public class Mycoplasma extends Cell {
 
-  /**
-   * Create a new Mycoplasma.
-   *
-   * @param field    The field currently occupied.
-   * @param location The location within the field.
-   */
-  public Mycoplasma(Field field, Location location, Color col) {
-    super(field, location, col);
-  }
+	/**
+	 * Create a new Mycoplasma.
+	 *
+	 * @param field    The field currently occupied.
+	 * @param location The location within the field.
+	 */
+	public Mycoplasma(Field field, Location location, Color col) {
+		super(field, location, col);
+	}
 
-  /**
-   * This is how the Mycoplasma decides if it's alive or not
-   */
-  public void act() {
-    List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
-    setNextState(false);
+	/**
+	 * This is how the Mycoplasma decides if it's alive or not
+	 */
+	public void act() {
+		List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
+		setNextState(false);
 
-    if (isAlive()) {
-      //if neighbouring cell is virus then die and reset age (parasitic relationship)
-/*       for (Cell cell : neighbours) {
-        if (cell instanceof Virus) {
-          setNextState(false);
-        
-        }
-      } */
-      if (neighbours.size() < 2) {
-        setNextState(false);
-  
+		if (isAlive()) {
+			// if neighbouring cell is virus then die and reset age (parasitic relationship)
+			for (Cell cell : neighbours) {
+				if (cell instanceof Virus) {
+					setNextState(false);
 
-      } else if (neighbours.size() == 2 || neighbours.size() == 3) {
-        setNextState(true);
-     
+				}
+			}
+			if (neighbours.size() < 2) {
+				setNextState(false);
 
-      }
-    } else {
-      resetAge();
-      if (neighbours.size() == 3)
-        setNextState(true);
+			} else if (neighbours.size() == 2 || neighbours.size() == 3) {
+				setNextState(true);
 
-    }
-  }
-  
+			}
+		} else {
+			resetAge();
+			if (neighbours.size() == 3)
+				setNextState(true);
+
+		}
+	}
+
 }
