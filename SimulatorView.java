@@ -42,6 +42,7 @@ public class SimulatorView extends JFrame {
     private FieldStats stats;
 
     public boolean continueSimulation = true;
+    private boolean quitSimulation = false;
 
     /**
      * Create a view of the given width and height.
@@ -107,7 +108,10 @@ public class SimulatorView extends JFrame {
 
         handlePause();
         handleResume();
+        handleQuit();
     }
+
+
 
     /*
      * Handle the pause button
@@ -126,10 +130,19 @@ public class SimulatorView extends JFrame {
      */
 
     public void handleResume() {
-        // Add event listener for the "Pause" button
+        // Add event listener for the "resume" button
         resume.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 continueSimulation = true;
+            }
+        });
+    }
+
+    public void handleQuit() {
+        // Add event listener for the "resume" button
+        stop.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                quitSimulation = true;
             }
         });
     }
@@ -275,6 +288,11 @@ public class SimulatorView extends JFrame {
     // return boolean continueSimulation
     public boolean getContinueSimulation() {
         return continueSimulation;
+    }
+
+    // return boolean quitSimulation;
+    public boolean getQuitSimulation() {
+        return quitSimulation;
     }
 
 }

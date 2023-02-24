@@ -90,6 +90,7 @@ public class Simulator {
 
   }
 
+
   /**
    * Run the simulation from its current state for the given number of
    * generations. Stop before the given number of generations if the
@@ -99,17 +100,23 @@ public class Simulator {
    */
   public void simulate(int numGenerations) {
     for (int gen = 1; gen <= numGenerations && view.isViable(field) && getContinueSimulation(); gen++) {
+
+      if (getContinueSimulation()){
       simOneGeneration();
       delay(500);
       System.out.println(view.getPopulationDetails(field));
-      while (!getContinueSimulation()) {
+      if( getQuitSimulation()) {
           // if the loop should be paused, wait until continueSimulation is true again
-          delay(50000);
+            System.exit(0);
+            }}
+      while (!getContinueSimulation()) {
+        int currentgen =gen;
+        view.showStatus(currentgen, field);
+            // if the loop should be paused, wait until continueSimulation is true again
         
       }
   }
-
-  }
+}
 
   /**
    * Run the simulation from its current state for a single generation.
@@ -210,5 +217,10 @@ public class Simulator {
   public boolean getContinueSimulation(){
     return view.getContinueSimulation();
   }
+
+    // return boolean quitSimulation
+    public boolean getQuitSimulation(){
+      return view.getQuitSimulation();
+    }
 
 }
