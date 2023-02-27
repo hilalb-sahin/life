@@ -81,7 +81,7 @@ public class SimulatorView extends JFrame {
         JPanel infoPane = new JPanel(new BorderLayout());
         infoPane.add(genLabel, BorderLayout.WEST);
         infoPane.add(infoLabel, BorderLayout.CENTER);
-        infoPane.setBackground(new Color(57, 106, 252));
+        //infoPane.setBackground(new Color(57, 106, 252));
         infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         infoPane.setForeground(Color.WHITE); // Set the font color to white
 

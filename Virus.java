@@ -9,9 +9,8 @@ import java.util.Random;
  * @version 2022.01.06 (1)
  */
 
-public class Virus extends Cell {
-
-  /**
+  class Virus extends Cell {
+    /**
    * Create a new Mycoplasma.
    *
    * @param field    The field currently occupied.
@@ -26,6 +25,7 @@ public class Virus extends Cell {
    * This is how the Mycoplasma decides if it's alive or not
    */
   public void act() {
+    super.act();
     List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
     setNextState(false);
 
@@ -41,18 +41,17 @@ public class Virus extends Cell {
     } else {
       // if neighbouring cell is mycoplasma then become alive (positive effect on
       // virus)
-/*       for (Cell cell : neighbours) {
+       for (Cell cell : neighbours) {
         if (cell instanceof Mycoplasma) {
           setNextState(true);
-
         }
-      } */
-      resetAge();
+      } 
       if (neighbours.size() == 3) {
         setNextState(true);
       }
 
     }
+
   }
 
 }

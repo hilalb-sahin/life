@@ -30,6 +30,8 @@ public abstract class Cell {
   private boolean isDiseased = false;
   private int diseasedAge = 0;
 
+  private Color originalColor;
+
   /**
    * Create a new cell at location in field.
    *
@@ -42,6 +44,7 @@ public abstract class Cell {
     this.field = field;
     setLocation(location);
     setColor(col);
+    setOriginalColor(col);
   }
 
   public static void main(String[] args) {
@@ -49,7 +52,7 @@ public abstract class Cell {
     System.out.println(randomize());
 
   }
-
+  
   public void incrementAge() {
     age++;
   }
@@ -74,20 +77,23 @@ public abstract class Cell {
    * next generation.
    */
   public void act() {
-    // if in the next round you are alive, increment age
-    if (nextAlive) {
-      // randomly get disease (for each life form)
-      // get diseased in %30 of chance, if you are not already diseased
-      if (randomize() > 7 && !isDiseased) {
-        isDiseased = true;
-        // get disease, die after 5 rounds of disease, ? (change of behaviour)
-        setNextState(false);
-        resetAge();
+    if (isAlive()) {
+      // by %30 chance, the cell will be diseased
+      if (randomize() > 7) {
+        setIsDiseased(true);
+        setColor(Color.RED);
+      }else{
+        setIsDiseased(false);
+        setColor(originalColor);
       }
-      incrementAge();
-    } else {
-      resetAge();
-    } 
+    }
+  }
+
+ /*
+  * Set the original color of the cell
+  */
+  public void setOriginalColor(Color col) {
+    originalColor= col;
   }
 
   /**
@@ -114,10 +120,13 @@ public abstract class Cell {
 
   }
 
-  public void handleAge(){
-    if(nextAlive){
+  /*
+   * Handle the age of the cell based on the next state
+   */
+  public void handleAge() {
+    if (nextAlive) {
       incrementAge();
-    }else{
+    } else {
       resetAge();
     }
   }
@@ -170,5 +179,19 @@ public abstract class Cell {
    */
   protected Field getField() {
     return field;
+  }
+
+  /*
+   *  Set the cell to diseased or not
+   */
+  public void setIsDiseased(boolean value) {
+    isDiseased = value;
+  }
+
+  /*
+   * Returns whether the cell is diseased or not
+   */
+  public boolean isDiseased() {
+    return isDiseased;
   }
 }

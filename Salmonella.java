@@ -29,6 +29,7 @@ public class Salmonella extends Cell {
   public Salmonella(Field field, Location location, Color col) {
     super(field, location, col);
     setColor(new Color(255,102,102));
+  
   }
 
   /**
@@ -37,6 +38,7 @@ public class Salmonella extends Cell {
    * changes color to black when age is more than 5
    */
   public void act() {
+    super.act();
 
     List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
     setNextState(false);

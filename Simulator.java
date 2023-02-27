@@ -99,12 +99,18 @@ public class Simulator {
    * @param numGenerations The number of generations to run for.
    */
   public void simulate(int numGenerations) {
+
     for (int gen = 1; gen <= numGenerations && view.isViable(field) && getContinueSimulation(); gen++) {
 
       if (getContinueSimulation()){
       simOneGeneration();
-      delay(500);
+      delay(800);
       System.out.println(view.getPopulationDetails(field));
+      System.out.println("diseased cells: " + getDiseasedCells());
+      System.out.println("healthy cells: " + getHealthyCells());
+      System.out.println("dead cells: " + getDeadCells());
+      System.out.println("all cells: " + getAllCells());
+      System.out.println("red cells: " + getRedCells());
       if( getQuitSimulation()) {
           // if the loop should be paused, wait until continueSimulation is true again
             System.exit(0);
@@ -117,6 +123,53 @@ public class Simulator {
       }
   }
 }
+  public int getDiseasedCells() {
+    int diseasedCells = 0;
+    for (Cell cell : cells) {
+      if (cell.isDiseased()) {
+        diseasedCells++;
+      }
+    }
+    return diseasedCells;
+  }
+
+  public int getRedCells() {
+    int redCells = 0;
+    for (Cell cell : cells) {
+      if (cell.getColor() == Color.RED) {
+        redCells++;
+      }
+    }
+    return redCells;
+  }
+
+  public int getHealthyCells() {
+    int healthyCells = 0;
+    for (Cell cell : cells) {
+      if (!cell.isDiseased()) {
+        healthyCells++;
+      }
+    }
+    return healthyCells;
+  }
+
+  public int getAllCells() {
+    int allCells = 0;
+    for (Cell cell : cells) {
+      allCells++;
+    }
+    return allCells;
+  }
+
+  public int getDeadCells(){
+    int deadCells = 0;
+    for (Cell cell : cells) {
+      if (!cell.isAlive()) {
+        deadCells++;
+      }
+    }
+    return deadCells;
+  }
 
   /**
    * Run the simulation from its current state for a single generation.
@@ -175,11 +228,7 @@ public class Simulator {
           Cell virus = new Virus(field, location, Color.pink);
           cells.add(virus);
         }
-        // fill the field with npd if random number is less than the probability
-        else if (rand.nextDouble() <= NDP_ALIVE_PROB) {
-          Cell ndp = new Ndplasma(field, location, Color.orange);
-          cells.add(ndp);
-        }
+
         // fill with bacteria
         else if (rand.nextDouble() <= BACTERIA_ALIVE_PROB) {
           Cell bac = new Bacteria(field, location, Color.green);

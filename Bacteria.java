@@ -9,19 +9,18 @@ import java.util.List;
 public class Bacteria extends Cell {
     public Bacteria(Field field, Location location, Color col) {
         super(field, location, col);
-    }
-
-    public int randomizeNumber() {
-        int random = (int) (Math.random() * 10);
-        return random;
+        setOriginalColor(col);
     }
 
     public void act() {
+        //combine the act of the super class
+        super.act();
+
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
         setNextState(false);
         
         // acts differently randomly
-        if (randomizeNumber() < 5) {
+        if (randomize() < 5) {
             if (isAlive()) {
                 if (neighbours.size() < 2) {
                     setNextState(false);
@@ -35,7 +34,7 @@ public class Bacteria extends Cell {
             }
         } else {
             if (isAlive()) {
-                if (neighbours.size() < 2) {
+                if (neighbours.size() < 3) {
                     setNextState(false);
                 } else {
                     setNextState(true);

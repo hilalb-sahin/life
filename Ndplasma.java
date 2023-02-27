@@ -10,6 +10,7 @@ public class Ndplasma extends Cell {
 
 
     public void act() {
+        super.act();
         List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
         // it dies next raund by default
         setNextState(false);
