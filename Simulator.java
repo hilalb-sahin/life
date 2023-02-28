@@ -100,22 +100,18 @@ public class Simulator {
    */
   public void simulate(int numGenerations) {
 
-    for (int gen = 1; gen <= numGenerations && view.isViable(field) && getContinueSimulation(); gen++) {
+    for (int gen = 1; gen <= numGenerations && view.isViable(field) && view.getContinueSimulation(); gen++) {
 
-      if (getContinueSimulation()){
+      if (view.getContinueSimulation()){
       simOneGeneration();
-      delay(800);
-      System.out.println(view.getPopulationDetails(field));
-      System.out.println("diseased cells: " + getDiseasedCells());
-      System.out.println("healthy cells: " + getHealthyCells());
-      System.out.println("dead cells: " + getDeadCells());
-      System.out.println("all cells: " + getAllCells());
-      System.out.println("red cells: " + getRedCells());
-      if( getQuitSimulation()) {
+      delay(500);
+      System.out.println(view.getPopulationDetails(field)); 
+      System.out.println();
+      if( view.getQuitSimulation()) {
           // if the loop should be paused, wait until continueSimulation is true again
             System.exit(0);
             }}
-      while (!getContinueSimulation()) {
+      while (!view.getContinueSimulation()) {
         int currentgen =gen;
         view.showStatus(currentgen, field);
             // if the loop should be paused, wait until continueSimulation is true again
@@ -123,53 +119,6 @@ public class Simulator {
       }
   }
 }
-  public int getDiseasedCells() {
-    int diseasedCells = 0;
-    for (Cell cell : cells) {
-      if (cell.isDiseased()) {
-        diseasedCells++;
-      }
-    }
-    return diseasedCells;
-  }
-
-  public int getRedCells() {
-    int redCells = 0;
-    for (Cell cell : cells) {
-      if (cell.getColor() == Color.RED) {
-        redCells++;
-      }
-    }
-    return redCells;
-  }
-
-  public int getHealthyCells() {
-    int healthyCells = 0;
-    for (Cell cell : cells) {
-      if (!cell.isDiseased()) {
-        healthyCells++;
-      }
-    }
-    return healthyCells;
-  }
-
-  public int getAllCells() {
-    int allCells = 0;
-    for (Cell cell : cells) {
-      allCells++;
-    }
-    return allCells;
-  }
-
-  public int getDeadCells(){
-    int deadCells = 0;
-    for (Cell cell : cells) {
-      if (!cell.isAlive()) {
-        deadCells++;
-      }
-    }
-    return deadCells;
-  }
 
   /**
    * Run the simulation from its current state for a single generation.
@@ -207,7 +156,7 @@ public class Simulator {
 
     Random rand = Randomizer.getRandom();
     field.clear();
-
+    // loop through each location in field
     for (int row = 0; row < field.getDepth(); row++) {
       for (int col = 0; col < field.getWidth(); col++) {
 
@@ -262,14 +211,5 @@ public class Simulator {
     return generation;
   }
 
-  //return boolean continueSimulation
-  public boolean getContinueSimulation(){
-    return view.getContinueSimulation();
-  }
-
-    // return boolean quitSimulation
-    public boolean getQuitSimulation(){
-      return view.getQuitSimulation();
-    }
 
 }

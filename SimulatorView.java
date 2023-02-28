@@ -29,7 +29,7 @@ public class SimulatorView extends JFrame {
     private final String POPULATION_PREFIX = "Population: ";
 
     // buttons for the simulation
-    private JButton pause, resume, stop;
+    private JButton pause, resume, quit;
 
     // GUI labels
     private JLabel genLabel, population, infoLabel;
@@ -40,8 +40,9 @@ public class SimulatorView extends JFrame {
 
     // A statistics object computing and storing simulation information
     private FieldStats stats;
-
+    // Used for regulating the simulation with the pause and resume buttons
     public boolean continueSimulation = true;
+    // Used for regulating the simulation with the quit button
     private boolean quitSimulation = false;
 
     /**
@@ -60,7 +61,7 @@ public class SimulatorView extends JFrame {
         population = new JLabel(POPULATION_PREFIX, JLabel.CENTER);
         pause = new JButton("Pause");
         resume = new JButton("Resume");
-        stop = new JButton("Stop");
+        quit = new JButton("Quit");
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -70,9 +71,10 @@ public class SimulatorView extends JFrame {
 
         JPanel buttonPanel = new JPanel(new GridLayout(1, 3));
 
+        //add buttons to the panel
         buttonPanel.add(pause);
         buttonPanel.add(resume);
-        buttonPanel.add(stop);
+        buttonPanel.add(quit);
 
         Container contents = getContentPane();
         contents.setLayout(new BorderLayout());
@@ -81,7 +83,7 @@ public class SimulatorView extends JFrame {
         JPanel infoPane = new JPanel(new BorderLayout());
         infoPane.add(genLabel, BorderLayout.WEST);
         infoPane.add(infoLabel, BorderLayout.CENTER);
-        //infoPane.setBackground(new Color(57, 106, 252));
+        // infoPane.setBackground(new Color(57, 106, 252));
         infoPane.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
         infoPane.setForeground(Color.WHITE); // Set the font color to white
 
@@ -100,7 +102,6 @@ public class SimulatorView extends JFrame {
         JPanel northPanel = new JPanel(new BorderLayout());
         northPanel.add(infoPane, BorderLayout.CENTER);
         contents.add(northPanel, BorderLayout.NORTH);
-
         contents.add(fieldView, BorderLayout.CENTER);
 
         pack();
@@ -111,36 +112,45 @@ public class SimulatorView extends JFrame {
         handleQuit();
     }
 
-
-
-    /*
+    /**
      * Handle the pause button
      */
     public void handlePause() {
         // Add event listener for the "Pause" button
         pause.addActionListener(new ActionListener() {
+            /**
+             * When "Pause" button is clicked, set the continueSimulation flag to false
+             */
             public void actionPerformed(ActionEvent e) {
                 continueSimulation = false;
             }
         });
     }
 
-    /*
+    /**
      * Handle the resume button
      */
-
     public void handleResume() {
         // Add event listener for the "resume" button
         resume.addActionListener(new ActionListener() {
+            /**
+             * When "Resume" button is clicked, set continueSimulation to true
+             */
             public void actionPerformed(ActionEvent e) {
                 continueSimulation = true;
             }
         });
     }
 
+    /**
+     * Handle the quit button
+     */
     public void handleQuit() {
-        // Add event listener for the "resume" button
-        stop.addActionListener(new ActionListener() {
+        // Add event listener for the "quit" button
+        quit.addActionListener(new ActionListener() {
+            /**
+             * When "Quit" button is clicked, set quitSimulation to true
+             */
             public void actionPerformed(ActionEvent e) {
                 quitSimulation = true;
             }

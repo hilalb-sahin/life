@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.target=Virus
-comment0.text=\n\ Has\ parasitic\ relationship\ with\ mycoplasma\n\n\ @author\ David\ J.\ Barnes,\ Michael\ K\u00F6lling\ &\ Jeffery\ Raphael\n\ @version\ 2022.01.06\ (1)\n
+comment0.text=\n\ A\ virus\ that\ has\ a\ parasitic\ relationship\ with\ mycoplasma.\n\ It\ extends\ the\ Cell\ class,\ which\ represents\ a\ single\ cell\ on\ a\ grid.\n\ \n\ @author\ Ranim\ Ghebache,\ Hilal\ Sahin\n\ @version\ 2023.02.28\ (1)\n
 comment1.params=field\ location\ col
 comment1.target=Virus(Field,\ Location,\ java.awt.Color)
-comment1.text=\n\ Create\ a\ new\ Mycoplasma.\n\n\ @param\ field\ \ \ \ The\ field\ currently\ occupied.\n\ @param\ location\ The\ location\ within\ the\ field.\n
+comment1.text=\n\ Create\ a\ new\ Virus\ with\ the\ specified\ field,\ location,\ and\ color.\n\n\ @param\ field\ The\ field\ currently\ occupied\ by\ the\ virus.\n\ @param\ location\ The\ location\ within\ the\ field\ where\ the\ virus\ is\ created.\n\ @param\ col\ The\ color\ of\ the\ virus.\n
 comment2.params=
 comment2.target=void\ act()
-comment2.text=\n\ This\ is\ how\ the\ Mycoplasma\ decides\ if\ it's\ alive\ or\ not\n
+comment2.text=\n\ This\ is\ how\ the\ virus\ decides\ if\ it's\ alive\ or\ not\ and\ what\ to\ do.\n\ It\ combines\ the\ act()\ method\ in\ the\ Cell\ class.\n
 numComments=3

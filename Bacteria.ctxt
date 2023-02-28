@@ -1,10 +1,10 @@
 #BlueJ class context
 comment0.target=Bacteria
-comment0.text=\n\ A\ simple\ model\ of\ a\ bacteria.\n\ Bacteria\ age\ and\ act\ and\ die\ \n\ Acts\ in\ a\ non-deterministic\ way\ \n
+comment0.text=\n\ A\ simple\ model\ of\ a\ bacteria.\n\ Bacteria\ age\ and\ act\ and\ die\ \n\ Acts\ in\ a\ non-deterministic\ way\ \n\ @author\ Ranim\ Ghebache,\ Hilal\ Sahin\n\ @version\ 2023.02.28\ (1)\n
 comment1.params=field\ location\ col
 comment1.target=Bacteria(Field,\ Location,\ java.awt.Color)
+comment1.text=\n\ Constructor\ for\ creating\ a\ Bacteria\ object.\n\ @param\ field\ The\ field\ where\ the\ bacteria\ is\ located.\n\ @param\ location\ The\ location\ of\ the\ bacteria\ in\ the\ field.\n\ @param\ col\ The\ color\ of\ the\ bacteria.\n
 comment2.params=
-comment2.target=int\ randomizeNumber()
-comment3.params=
-comment3.target=void\ act()
-numComments=4
+comment2.target=void\ act()
+comment2.text=\n\ Method\ for\ determining\ the\ next\ state\ of\ the\ bacteria\ based\ on\ its\ neighbors.\n
+numComments=3

@@ -52,7 +52,7 @@ public abstract class Cell {
     System.out.println(randomize());
 
   }
-  
+
   public void incrementAge() {
     age++;
   }
@@ -72,22 +72,50 @@ public abstract class Cell {
     return randomNum;
   }
 
+  //randomize double from 0 to 10
+  public double randomizeDouble(){
+    Random rand = new Random();
+    double randomNum = rand.nextDouble(10);
+    return randomNum;
+  }
+
   /**
    * Make this cell act - that is: the cell decides it's status in the
    * next generation.
    */
   public void act() {
     if (isAlive()) {
-      // by %30 chance, the cell will be diseased
-      if (randomize() > 7) {
-        setIsDiseased(true);
-        setColor(Color.RED);
-      }else{
-        setIsDiseased(false);
-        setColor(originalColor);
-      }
+        // by a small chance, the cell will be diseased
+        if (randomizeDouble() > 7.5) {
+            setIsDiseased(true);
+            setColor(Color.RED);
+            diseasedAge = 0;
+            while (isDiseased && isAlive()) {
+                diseasedAge++;
+                //if diseasedAge is more than 4 infect the neighbors
+                if (diseasedAge > 4) {
+                    // set neighbor cells to be diseased
+                    List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
+                    for (Cell cell : neighbours) {
+                        if (!cell.isDiseased()) {
+                            cell.setIsDiseased(true);
+                        }
+                    }
+                    // set the cell to be dead
+                    setNextState(false);
+                    setIsDiseased(false);
+                    diseasedAge = 0;
+                }
+            }
+        } else {
+            setColor(originalColor);
+            setIsDiseased(false);
+            diseasedAge = 0;
+        }
     }
-  }
+}
+
+  
 
  /*
   * Set the original color of the cell

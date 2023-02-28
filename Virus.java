@@ -1,57 +1,64 @@
 import java.awt.Color;
 import java.util.List;
-import java.util.Random;
 
 /**
- * Has parasitic relationship with mycoplasma
- *
- * @author David J. Barnes, Michael Kölling & Jeffery Raphael
- * @version 2022.01.06 (1)
+ * A virus that has a parasitic relationship with mycoplasma.
+ * It extends the Cell class, which represents a single cell on a grid.
+ * 
+ * @author Ranim Ghebache, Hilal Sahin
+ * @version 2023.02.28 (1)
  */
-
-  class Virus extends Cell {
+public class Virus extends Cell {
+    
     /**
-   * Create a new Mycoplasma.
-   *
-   * @param field    The field currently occupied.
-   * @param location The location within the field.
-   */
-  public Virus(Field field, Location location, Color col) {
-    super(field, location, col);
-
-  }
-
-  /**
-   * This is how the Mycoplasma decides if it's alive or not
-   */
-  public void act() {
-    super.act();
-    List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
-    setNextState(false);
-
-    if (isAlive()) {
-
-      if (neighbours.size() < 2) {
+     * Create a new Virus with the specified field, location, and color.
+     *
+     * @param field The field currently occupied by the virus.
+     * @param location The location within the field where the virus is created.
+     * @param col The color of the virus.
+     */
+    public Virus(Field field, Location location, Color col) {
+        // Call the constructor of the superclass (Cell) to initialize the object
+        super(field, location, col);
+    }
+    
+    /**
+     * This is how the virus decides if it's alive or not and what to do.
+     * It combines the act() method in the Cell class.
+     */
+    public void act() {
+        // Call the act() method of the superclass (Cell) to update the state
+        super.act();
+        
+        // Get the neighboring cells that are alive
+        List<Cell> neighbours = getField().getLivingNeighbours(getLocation());
+        
+        // Assume that the virus will not survive until the next round
         setNextState(false);
 
-      } else if (neighbours.size() == 2 || neighbours.size() == 3) {
-        setNextState(true);
-
-      }
-    } else {
-      // if neighbouring cell is mycoplasma then become alive (positive effect on
-      // virus)
-       for (Cell cell : neighbours) {
-        if (cell instanceof Mycoplasma) {
-          setNextState(true);
+        // Check if the virus is currently alive
+        if (isAlive()) {
+            // If the virus has less than 2 neighbors, it dies
+            if (neighbours.size() < 2) {
+                setNextState(false);
+            }
+            // If the virus has 2 or 3 neighbors, it survives to the next round
+            else if (neighbours.size() == 2 || neighbours.size() == 3) {
+                setNextState(true);
+            }
         }
-      } 
-      if (neighbours.size() == 3) {
-        setNextState(true);
-      }
-
+        // If the virus is currently dead
+        else {
+            // If there is a neighboring cell that is a mycoplasma, the virus becomes alive 
+            for (Cell cell : neighbours) {
+                if (cell instanceof Mycoplasma) {
+                    setNextState(true);
+                }
+            }
+            // If the virus has exactly 3 neighbors, it becomes alive 
+            if (neighbours.size() == 3) {
+                setNextState(true);
+            }
+        }
     }
-
-  }
-
 }
