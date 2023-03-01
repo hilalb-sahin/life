@@ -1,4 +1,4 @@
-**Description**
+Description
 
 This project explores the concept of cellular automata (CA), which involves a grid of cells, where each cell has a finite state. In this simulation, cells are given an initial state and follow a fixed set of rules to determine their subsequent state in the next generation (iteration). The simulation typically assumes uniform rules that remain constant over time, and the eight neighboring cells of a cell are referred to as its neighbors.
 
