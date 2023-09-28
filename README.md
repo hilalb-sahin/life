@@ -13,9 +13,9 @@ Explore the wide-ranging applications of cellular automata.
 
 ## Getting Started
 
-1- Clone this repository.
-2- Compile and run the Simulation.java file using your preferred Java compiler.
-3- Dive into the world of cellular automata and explore the behaviors of the different life forms.
+1. Clone this repository.
+2. Compile and run the Simulation.java file using your preferred Java compiler.
+3. Dive into the world of cellular automata and explore the behaviors of the different life forms.
 
 ## Acknowledgments
 
