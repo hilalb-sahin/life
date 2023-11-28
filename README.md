@@ -19,4 +19,4 @@ Explore the wide-ranging applications of cellular automata.
 
 ## Acknowledgments
 
-Special thanks to the Java development community for providing the necessary tools to implement this simulation, and to Ranim Ghebache for her contributions to this project. Ranim helped implement the Simulator and SimulatorView classes, and provided valuable assistance with the Pause, Resume, and Quit buttons. Thank you, Ranim, for your hard work and dedication.
+Special thanks to the Java development community for providing the necessary tools to implement this simulation, and to Ranim Ghebache for her contributions to this project.
