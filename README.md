@@ -7,7 +7,7 @@ Cellular automata find applications in diverse fields, from geography and anthro
 ## Key Features:
 
 Simulate cellular automata with diverse life forms.
-Observe the evolution of cell states based on fixed rules.
+Observe the change of cell states based on fixed rules.
 Explore the wide-ranging applications of cellular automata.
 
 
